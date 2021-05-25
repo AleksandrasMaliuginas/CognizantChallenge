@@ -1,0 +1,24 @@
+
+.form-upload {
+  max-width: 600px;
+}
+
+.input-field {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+}
+
+.input-field > span, .input-field > input, .input-field > select, .input-field > textarea {
+  flex: 1 0 auto;
+}
+
+.input-field > span {
+  max-width: 150px;
+  text-transform: uppercase;
+  margin-top: 2pt;
+}
+
+button {
+  margin-right: 10pt;
+}

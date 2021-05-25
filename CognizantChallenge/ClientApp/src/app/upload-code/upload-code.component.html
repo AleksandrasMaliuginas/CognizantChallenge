@@ -1,0 +1,40 @@
+<h1 id="tableLabel">Upload Code</h1>
+
+<form #form="ngForm" (ngSubmit)="onSubmit(form)" novalidate class="form-upload">
+  <div class="input-field">
+    <span>Name*</span>
+    <input name="name" ngModel required #first="ngModel">
+  </div>
+  <div class="input-field">
+    <span>Select Task*</span>
+    <select name="taskId" ngModel required #taskId="ngModel">
+      <option value="1">Task1</option>
+      <option value="2">Task2</option>
+    </select>
+  </div>
+  <div class="input-field">
+    <span>Description</span>
+    <textarea name="description" rows="2" ngModel #description="ngModel"></textarea>
+  </div>
+  <div class="input-field">
+    <span>Source Code*</span>
+    <textarea name="sourceCode" rows="5" ngModel required #sourceCode="ngModel"></textarea>
+  </div>
+
+  <div class="input-field">
+    <span></span>
+    <button>Submit</button><span *ngIf="uploading">Uploading...</span>
+  </div>
+</form>
+
+<div *ngIf="result !== undefined && result.output !== undefined">
+  <h3>Code Uploaded Successfuly!</h3>
+  <b>Output:</b>
+  <p>{{ result.output }}</p>
+  <hr>
+  <p>Execution time: {{ result.cpuTime }} | Memory used: {{ result.memory }}</p>
+</div>
+
+<div *ngIf="errorMessage !== undefined">
+  <b>{{ errorMessage }}</b>
+</div>
