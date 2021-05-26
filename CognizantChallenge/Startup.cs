@@ -1,3 +1,4 @@
+using CognizantChallenge.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -31,6 +32,8 @@ namespace CognizantChallenge
             services.AddDbContext<DatabaseContext>(options =>
                 options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection"))
             );
+
+            services.AddScoped<ICodeExecutor>(_ => new CodeExecutor(Configuration.GetConnectionString("JDoodleConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

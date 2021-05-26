@@ -8,7 +8,7 @@
         public string Description { get; set; }
         public string SourceCode { get; set; }
         public string Output { get; set; }
-        public double Memory { get; set; }
-        public double CpuTime { get; set; }
+        public double? Memory { get; set; }
+        public double? CpuTime { get; set; }
     }
 }

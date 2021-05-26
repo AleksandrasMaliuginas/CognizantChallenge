@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using CognizantChallenge;
 using CognizantChallenge.Models;
 using CognizantChallenge.Services;
 
@@ -16,10 +11,12 @@ namespace CognizantChallenge.Controllers
     public class TaskRecordsController : ControllerBase
     {
         private readonly DatabaseContext _context;
+        private readonly ICodeExecutor _codeExecutor;
 
-        public TaskRecordsController(DatabaseContext context)
+        public TaskRecordsController(DatabaseContext context, ICodeExecutor codeExecutor)
         {
             _context = context;
+            _codeExecutor = codeExecutor;
         }
 
         // POST: TaskRecords
@@ -28,8 +25,7 @@ namespace CognizantChallenge.Controllers
         {
             try
             {
-                var codeExecutor = new CodeExecutor();
-                var result = await codeExecutor.Execute(taskRecord.SourceCode);
+                var result = await _codeExecutor.Execute(taskRecord.SourceCode);
 
                 if (result == null)
                 {
@@ -40,26 +36,26 @@ namespace CognizantChallenge.Controllers
                 taskRecord.Memory = result.Memory;
                 taskRecord.CpuTime = result.CpuTime;
 
-                _context.Tasks.Add(taskRecord);
-                await _context.SaveChangesAsync();
+                if (taskRecord.Memory != null && taskRecord.CpuTime != null)
+                {
+                    _context.Tasks.Add(taskRecord);
+                    await _context.SaveChangesAsync();
+                }
 
-                //return CreatedAtAction("GetTaskRecord", new { id = taskRecord.Id }, taskRecord);
                 return Ok(taskRecord);
             }
-            catch(Exception ex)
+            catch(Exception)
             {
                 // Log errors
-
                 return StatusCode(500);
             }
-            
         }
 
-        // GET: api/TaskRecords
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<TaskRecord>>> GetTasks()
-        {
-            return await _context.Tasks.ToListAsync();
-        }
+        // GET: TaskRecords
+        //[HttpGet]
+        //public ObjectResult GetTasks()
+        //{
+        //    return Ok("Service is working");
+        //}
     }
 }
