@@ -27,12 +27,26 @@
   </div>
 </form>
 
-<div *ngIf="result !== undefined && result.output !== undefined">
-  <h3>Code Uploaded Successfuly!</h3>
-  <b>Output:</b>
-  <p>{{ result.output }}</p>
-  <hr>
-  <p>Execution time: {{ result.cpuTime }} | Memory used: {{ result.memory }}</p>
+
+<div *ngIf="result !== undefined">
+
+  <!-- <div *ngIf="show; else elseBlock">Text to show</div>
+    <ng-template #elseBlock>Alternate text while primary text is hidden</ng-template> -->
+
+  <div *ngIf="result.memory !== null && result.memory !== null; else compilationError">
+    <h3>Code Uploaded Successfuly!</h3>
+    <b>Output:</b>
+    <p>{{ result.output }}</p>
+    <hr>
+    <p>Execution time: {{ result.cpuTime }} | Memory used: {{ result.memory }}</p>
+  </div>
+
+  <ng-template #compilationError>
+    <h3 style="color: red">Compilation Error</h3> 
+    <b>Output:</b>
+    <p>{{ result.output }}</p>
+  </ng-template>
+  
 </div>
 
 <div *ngIf="errorMessage !== undefined">

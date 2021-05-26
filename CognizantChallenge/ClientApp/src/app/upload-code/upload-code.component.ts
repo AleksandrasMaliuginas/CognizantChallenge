@@ -14,6 +14,7 @@ export class UploadCodeComponent {
   public result: TaskRecord;
   public errorMessage: string;
   public uploading: boolean = false;
+  // public compilationError: boolean = false;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
