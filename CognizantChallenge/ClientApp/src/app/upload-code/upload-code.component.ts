@@ -14,7 +14,6 @@ export class UploadCodeComponent {
   public result: TaskRecord;
   public errorMessage: string;
   public uploading: boolean = false;
-  // public compilationError: boolean = false;
 
   constructor(http: HttpClient, @Inject('BASE_URL') baseUrl: string) {
     this.http = http;
@@ -22,19 +21,19 @@ export class UploadCodeComponent {
   }
 
   onSubmit(form: NgForm) {
-    console.log(form.value);
-    console.log(form.valid);
+    // console.log(form.value);
+    // console.log(form.valid);
 
     if (form.valid) {
       this.uploading = true;
       this.http.post<TaskRecord>(this.baseUrl + 'TaskRecords', form.value).subscribe(
         result => {
-          console.log(result);
+          // console.log(result);
           this.result = result;
           this.uploading = false;
         },
         error => {
-          console.error(error);
+          // console.error(error);
           this.errorMessage = "Something went wrong while uploading your code.";
           this.uploading = false;
         }

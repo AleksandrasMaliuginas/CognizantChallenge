@@ -18,7 +18,7 @@
   </div>
   <div class="input-field">
     <span>Source Code*</span>
-    <textarea name="sourceCode" rows="5" ngModel required #sourceCode="ngModel"></textarea>
+    <textarea name="sourceCode" rows="10" ngModel required #sourceCode="ngModel"></textarea>
   </div>
 
   <div class="input-field">
@@ -30,11 +30,8 @@
 
 <div *ngIf="result !== undefined">
 
-  <!-- <div *ngIf="show; else elseBlock">Text to show</div>
-    <ng-template #elseBlock>Alternate text while primary text is hidden</ng-template> -->
-
   <div *ngIf="result.memory !== null && result.memory !== null; else compilationError">
-    <h3>Code Uploaded Successfuly!</h3>
+    <h3 style="color: green">Code Uploaded Successfuly!</h3>
     <b>Output:</b>
     <p>{{ result.output }}</p>
     <hr>
